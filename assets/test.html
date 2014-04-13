@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+  <meta charset="utf-8">
+  <title>My AngularJS App</title>
+  <link rel="stylesheet" href="css/app.css"/>
+</head>
+<body>
+<script src="/js/dependencies/sails.io.js"></script>
+<script>
+socket = io.connect();
+
+console.log('Connecting Socket.io to Sails.js...');
+
+socket.on('connect', function socketConnected() {
+
+  console.log('Socket is now connected');
+
+	socket.get('/foo', function allFoos(data) {
+		console.log('/foo:',data);
+	});
+
+	socket.get('/bar', function allBars(data) {
+		console.log('/bar:',data);
+	});
+
+		socket.on('foo', function ( message ) {
+			console.log('Sails published a message on foo:\n', message);
+		});
+
+		socket.on('bar', function ( message ) {
+			console.log('Sails published a message on bar:\n', message);
+		});
+
+
+});
+</script>
+</body>
+</html>
+
